@@ -10,6 +10,7 @@ public class Hovering : MonoBehaviour
     public float cposz = 0.2f;
     //
 
+    public Vector3 vector = new Vector3(0,1,0);
     //周長
     public float radius = 1f;
     //
@@ -36,7 +37,12 @@ public class Hovering : MonoBehaviour
         Vector3 hover = new Vector3(posX, posY, posZ);
 
         transform.position = hover;
-        transform.rotation = Quaternion.FromToRotation(transform.up, -hover + rValue * transform.up);
+
+        //作法1(範圍45~-45)
+        transform.rotation = Quaternion.FromToRotation(transform.up, hover + rValue * transform.up);
+
+        //作法2
+        //transform.rotation = Quaternion.Euler(hover.x, hover.y, hover.z);
     }
 
 

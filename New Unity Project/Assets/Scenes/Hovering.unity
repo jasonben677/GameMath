@@ -330,5 +330,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OshibaInu
       objectReference: {fileID: 0}
+    - target: {fileID: 6583829922921064623, guid: 701bf19a96c7e85409c5d6a68d82e7e0,
+        type: 3}
+      propertyPath: obj
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 701bf19a96c7e85409c5d6a68d82e7e0, type: 3}
