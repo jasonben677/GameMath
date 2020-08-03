@@ -44,24 +44,24 @@ public class AABB : MonoBehaviour
     }
 
     /// <summary>
-    /// AABB test
+    /// 2d AABB test
     /// </summary>
     /// <param name="a"></param>
     /// <param name="b"></param>
     /// <returns></returns>
     private bool CheckCollision(Transform a, Transform b)
     {
-        aMax_X = a.transform.position.x + (0.06f * a.transform.localScale.x);
-        aMin_X = a.transform.position.x - (0.06f * a.transform.localScale.x);
-        aMax_Y = a.transform.position.y + (0.06f * a.transform.localScale.y);
-        aMin_Y = a.transform.position.y - (0.06f * a.transform.localScale.y);
+        aMax_X = a.transform.position.x + (a_s.bounds.size.x/2);
+        aMin_X = a.transform.position.x - (a_s.bounds.size.x / 2);
+        aMax_Y = a.transform.position.y + (a_s.bounds.size.y / 2);
+        aMin_Y = a.transform.position.y - (a_s.bounds.size.y / 2);
 
         Debug.DrawLine(new Vector2(aMin_X, aMin_Y), new Vector2(aMax_X, aMax_Y), Color.green);
 
-        bMax_X = b.transform.position.x + (0.06f * b.transform.localScale.x);
-        bMin_X = b.transform.position.x - (0.06f * b.transform.localScale.x);
-        bMax_Y = b.transform.position.y + (0.06f * b.transform.localScale.y);
-        bMin_Y = b.transform.position.y - (0.06f * b.transform.localScale.y);
+        bMax_X = b.transform.position.x + (b_s.bounds.size.x / 2);
+        bMin_X = b.transform.position.x - (b_s.bounds.size.x / 2);
+        bMax_Y = b.transform.position.y + (b_s.bounds.size.y / 2);
+        bMin_Y = b.transform.position.y - (b_s.bounds.size.y / 2);
 
         Debug.DrawLine(new Vector2(bMax_X, bMax_Y), new Vector2(bMin_X, bMin_Y), Color.green);
 
