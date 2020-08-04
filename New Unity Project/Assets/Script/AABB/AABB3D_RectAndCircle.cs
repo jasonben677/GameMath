@@ -14,6 +14,9 @@ public class AABB3D_RectAndCircle : MonoBehaviour
     private MeshRenderer a_s;
     private MeshRenderer b_s;
 
+    private Material acolor;
+    private Material bcolor;
+
     private float aMax_X;
     private float aMin_X;
     private float aMax_Y;
@@ -43,7 +46,11 @@ public class AABB3D_RectAndCircle : MonoBehaviour
     {
         a_s = A.GetComponent<MeshRenderer>();
         b_s = circleB.GetComponent<MeshRenderer>();
-        bRadius = b_s.bounds.size.x / 2;
+
+        acolor = a_s.material;
+        bcolor = b_s.material;
+
+        bRadius = circleB.transform.localScale.x / 2;
     }
 
     // Update is called once per frame
@@ -51,22 +58,24 @@ public class AABB3D_RectAndCircle : MonoBehaviour
     {
         if (CheckCollision(A.transform, circleB.transform))
         {
-            Debug.LogError("Collision");
+            acolor.color = Color.red;
+            bcolor.color = Color.red;
         }
         else
         {
-            Debug.Log("No Collision");
+            acolor.color = Color.white;
+            bcolor.color = Color.white;
         }
     }
 
     private bool CheckCollision(Transform a, Transform b)
     {
-        aMax_X = a.position.x + (a_s.bounds.size.x / 2);
-        aMin_X = a.position.x - (a_s.bounds.size.x / 2);
-        aMax_Y = a.position.y + (a_s.bounds.size.y / 2);
-        aMin_Y = a.position.y - (a_s.bounds.size.y / 2);
-        aMax_Z = a.position.z + (a_s.bounds.size.z / 2);
-        aMin_Z = a.position.z - (a_s.bounds.size.z / 2);
+        aMax_X = a.position.x + (a.localScale.x / 2);
+        aMin_X = a.position.x - (a.localScale.x / 2);
+        aMax_Y = a.position.y + (a.localScale.y / 2);
+        aMin_Y = a.position.y - (a.localScale.y / 2);
+        aMax_Z = a.position.z + (a.localScale.z / 2);
+        aMin_Z = a.position.z - (a.localScale.z / 2);
 
         centerPoint = b.position;
 

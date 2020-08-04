@@ -49,8 +49,8 @@ namespace SAT
 
         private Obb ToObb(Transform trans, Vector2 _size, SpriteRenderer _render)
         {
-            Vector2 aaa = new Vector2(_size.x * trans.localScale.x / (_render.sprite.pixelsPerUnit * 2), _size.y * trans.localScale.y / (_render.sprite.pixelsPerUnit * 2));
-            return new Obb(trans.position, aaa, trans.rotation);
+            Vector2 realSize = new Vector2(_size.x * trans.localScale.x / (_render.sprite.pixelsPerUnit * 2), _size.y * trans.localScale.y / (_render.sprite.pixelsPerUnit * 2));
+            return new Obb(trans.position, realSize, trans.rotation);
         }
 
 

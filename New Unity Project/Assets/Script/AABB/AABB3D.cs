@@ -9,6 +9,8 @@ public class AABB3D : MonoBehaviour
 
     private MeshRenderer a_s;
     private MeshRenderer b_s;
+    private Material acolor;
+    private Material bcolor;
 
     private float aMax_X;
     private float aMin_X;
@@ -29,6 +31,8 @@ public class AABB3D : MonoBehaviour
     {
         a_s = a.GetComponent<MeshRenderer>();
         b_s = b.GetComponent<MeshRenderer>();
+        acolor = a_s.material;
+        bcolor = b_s.material;
     }
 
     // Update is called once per frame
@@ -36,11 +40,13 @@ public class AABB3D : MonoBehaviour
     {
         if (CheckCollision(a.transform, b.transform))
         {
-            Debug.LogError("collision");
+            acolor.color = Color.red;
+            bcolor.color = Color.red;
         }
         else
         {
-            Debug.Log("No collision");
+            acolor.color = Color.white;
+            bcolor.color = Color.white;
         }
     }
 
@@ -50,21 +56,21 @@ public class AABB3D : MonoBehaviour
     /// <param name="a"></param>
     /// <param name="b"></param>
     /// <returns></returns>
-    private bool CheckCollision(Transform a, Transform b)
+    private bool CheckCollision(Transform _a, Transform _b)
     {
-        aMax_X = a.position.x + (a_s.bounds.size.x / 2);
-        aMin_X = a.position.x - (a_s.bounds.size.x / 2);
-        aMax_Y = a.position.y + (a_s.bounds.size.y / 2);
-        aMin_Y = a.position.y - (a_s.bounds.size.y / 2);
-        aMax_Z = a.position.z + (a_s.bounds.size.z / 2);
-        aMin_Z = a.position.z - (a_s.bounds.size.z / 2);
+        aMax_X = _a.position.x + (_a.localScale.x / 2);
+        aMin_X = _a.position.x - (_a.localScale.x / 2);
+        aMax_Y = _a.position.y + (_a.localScale.y / 2);
+        aMin_Y = _a.position.y - (_a.localScale.y / 2);
+        aMax_Z = _a.position.z + (_a.localScale.z / 2);
+        aMin_Z = _a.position.z - (_a.localScale.z / 2);
 
-        bMax_X = b.position.x + (b_s.bounds.size.x / 2);
-        bMin_X = b.position.x - (b_s.bounds.size.x / 2);
-        bMax_Y = b.position.y + (b_s.bounds.size.y / 2);
-        bMin_Y = b.position.y - (b_s.bounds.size.y / 2);
-        bMax_Z = b.position.z + (b_s.bounds.size.z / 2);
-        bMin_Z = b.position.z - (b_s.bounds.size.z / 2);
+        bMax_X = _b.position.x + (_b.localScale.x / 2);
+        bMin_X = _b.position.x - (_b.localScale.x / 2);
+        bMax_Y = _b.position.y + (_b.localScale.y / 2);
+        bMin_Y = _b.position.y - (_b.localScale.y / 2);
+        bMax_Z = _b.position.z + (_b.localScale.z / 2);
+        bMin_Z = _b.position.z - (_b.localScale.z / 2);
 
 
         bool collisionX = aMax_X >= bMin_X && bMax_X >= aMin_X;

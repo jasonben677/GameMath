@@ -10,6 +10,9 @@ public class AABB3D_TwoCircle : MonoBehaviour
     private MeshRenderer a_m;
     private MeshRenderer b_m;
 
+    private Material acolor;
+    private Material bcolor;
+
     private float aRadius;
     private float bRadius;
 
@@ -18,8 +21,11 @@ public class AABB3D_TwoCircle : MonoBehaviour
         a_m = circleA.GetComponent<MeshRenderer>();
         b_m = circleB.GetComponent<MeshRenderer>();
 
-        aRadius = a_m.bounds.size.x / 2;
-        bRadius = b_m.bounds.size.x / 2;
+        acolor = a_m.material;
+        bcolor = b_m.material;
+
+        aRadius = circleA.transform.localScale.x / 2;
+        bRadius = circleB.transform.localScale.x / 2;
     }
 
     // Update is called once per frame
@@ -27,11 +33,13 @@ public class AABB3D_TwoCircle : MonoBehaviour
     {
         if (CheckCollision(circleA.transform, circleB.transform))
         {
-            Debug.LogError("Collision");
+            acolor.color = Color.red;
+            bcolor.color = Color.red;
         }
         else
         {
-            Debug.Log("No Collision");
+            acolor.color = Color.white;
+            bcolor.color = Color.white;
         }
     }
 

@@ -49,21 +49,31 @@ public class AABB : MonoBehaviour
     /// <param name="a"></param>
     /// <param name="b"></param>
     /// <returns></returns>
-    private bool CheckCollision(Transform a, Transform b)
+    private bool CheckCollision(Transform _a, Transform _b)
     {
-        aMax_X = a.transform.position.x + (a_s.bounds.size.x/2);
-        aMin_X = a.transform.position.x - (a_s.bounds.size.x / 2);
-        aMax_Y = a.transform.position.y + (a_s.bounds.size.y / 2);
-        aMin_Y = a.transform.position.y - (a_s.bounds.size.y / 2);
+        Vector2 aSize = new Vector2();
 
-        Debug.DrawLine(new Vector2(aMin_X, aMin_Y), new Vector2(aMax_X, aMax_Y), Color.green);
+        aSize.x = (a_s.sprite.rect.width * _a.localScale.x / (a_s.sprite.pixelsPerUnit * 2));
+        aSize.y = (a_s.sprite.rect.height * _a.localScale.y / (a_s.sprite.pixelsPerUnit * 2));
 
-        bMax_X = b.transform.position.x + (b_s.bounds.size.x / 2);
-        bMin_X = b.transform.position.x - (b_s.bounds.size.x / 2);
-        bMax_Y = b.transform.position.y + (b_s.bounds.size.y / 2);
-        bMin_Y = b.transform.position.y - (b_s.bounds.size.y / 2);
+        aMax_X = a.transform.position.x + (aSize.x);
+        aMin_X = a.transform.position.x - (aSize.x);
+        aMax_Y = a.transform.position.y + (aSize.y);
+        aMin_Y = a.transform.position.y - (aSize.y);
 
-        Debug.DrawLine(new Vector2(bMax_X, bMax_Y), new Vector2(bMin_X, bMin_Y), Color.green);
+        //Debug.DrawLine(new Vector2(aMin_X, aMin_Y), new Vector2(aMax_X, aMax_Y), Color.green);
+
+        Vector2 bSize = new Vector2();
+
+        bSize.x = (b_s.sprite.rect.width * _b.localScale.x / (b_s.sprite.pixelsPerUnit * 2));
+        bSize.y = (b_s.sprite.rect.height * _b.localScale.y / (b_s.sprite.pixelsPerUnit * 2));
+
+        bMax_X = b.transform.position.x + (bSize.x);
+        bMin_X = b.transform.position.x - (bSize.x);
+        bMax_Y = b.transform.position.y + (bSize.y);
+        bMin_Y = b.transform.position.y - (bSize.y);
+
+        //Debug.DrawLine(new Vector2(bMax_X, bMax_Y), new Vector2(bMin_X, bMin_Y), Color.green);
 
         // a.xMax >= b.xMin && b.xMax >= a.xMin 
         bool collisionX = aMax_X >= bMin_X&& bMax_X >= aMin_X;

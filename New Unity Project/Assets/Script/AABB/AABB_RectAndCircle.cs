@@ -34,8 +34,7 @@ public class AABB_RectAndCircle : MonoBehaviour
     {
         a_s = A.GetComponent<SpriteRenderer>();
         b_s = B.GetComponent<SpriteRenderer>();
-        bRadius = b_s.bounds.size.x / 2;
-
+        bRadius = (b_s.sprite.rect.width * B.transform.localScale.x) / (b_s.sprite.pixelsPerUnit * 2);
     }
 
     // Update is called once per frame
@@ -55,10 +54,16 @@ public class AABB_RectAndCircle : MonoBehaviour
 
     private bool CheckCollision(Transform a, Transform b)
     {
-        aMax_X = a.transform.position.x + a_s.bounds.size.x/2;
-        aMin_X = a.transform.position.x - a_s.bounds.size.x/2;
-        aMax_Y = a.transform.position.y + a_s.bounds.size.y/2;
-        aMin_Y = a.transform.position.y - a_s.bounds.size.y/2;
+        Vector2 aSize = new Vector2();
+
+        aSize.x = (a_s.sprite.rect.width * a.localScale.x / (a_s.sprite.pixelsPerUnit * 2));
+        aSize.y = (a_s.sprite.rect.height * a.localScale.y / (a_s.sprite.pixelsPerUnit * 2));
+
+
+        aMax_X = a.transform.position.x + aSize.x;
+        aMin_X = a.transform.position.x - aSize.x;
+        aMax_Y = a.transform.position.y + aSize.y;
+        aMin_Y = a.transform.position.y - aSize.y;
 
         Debug.DrawLine(new Vector2(aMin_X, aMin_Y), new Vector2(aMax_X, aMax_Y), Color.green);
 
