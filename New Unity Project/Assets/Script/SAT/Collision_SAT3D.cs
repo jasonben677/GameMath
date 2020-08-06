@@ -8,6 +8,15 @@ public class Collision_SAT3D : MonoBehaviour
     public Transform a;
     public Transform b;
 
+    private MeshRenderer a_s;
+    private MeshRenderer b_s;
+
+
+    private void Awake()
+    {
+        a_s = a.GetComponent<MeshRenderer>();
+        b_s = b.GetComponent<MeshRenderer>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -20,11 +29,13 @@ public class Collision_SAT3D : MonoBehaviour
     {
         if (CheckCollision(ToObb(a), ToObb(b)))
         {
-            Debug.LogError("Collision");        
+            a_s.material.color = Color.red;
+            b_s.material.color = Color.red;
         }
         else
         {
-            Debug.Log("No Collision");
+            a_s.material.color = Color.white;
+            b_s.material.color = Color.white;
         }
     }
 

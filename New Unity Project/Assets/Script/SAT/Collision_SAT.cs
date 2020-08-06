@@ -39,11 +39,13 @@ namespace SAT
         {
             if (CheckCollision(ToObb(a, a_size, a_s), ToObb(b, b_size, b_s)))
             {
-                Debug.LogError("Collision");
+                a_s.color = Color.red;
+                b_s.color = Color.red;
             }
             else
             {
-                Debug.Log("No");
+                a_s.color = Color.white;
+                b_s.color = Color.white;
             }
         }
 
