@@ -23,6 +23,7 @@ public class AABB : MonoBehaviour
 
     private void Awake()
     {
+		// 555
         a_s = a.GetComponent<SpriteRenderer>();
         b_s = b.GetComponent<SpriteRenderer>();
 
