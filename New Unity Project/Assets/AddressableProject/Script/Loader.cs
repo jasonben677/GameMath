@@ -23,13 +23,13 @@ public class Loader : MonoBehaviour
         //this._InstantiateCircle();
 
 
-        //StartCoroutine(this._CheckUpdate());
+        StartCoroutine(this._CheckUpdate());
     }
 
 
     private async void _LoadImg()
     {
-        Texture2D texture2D = await Addressables.LoadAssetAsync<Texture2D>("Assets/AddressableProject/Sprite/01.jpg").Task;
+        Texture2D texture2D = await Addressables.LoadAssetAsync<Texture2D>("Assets/AddressableProject/Sprite/05.jpg").Task;
 
         if (texture2D != null)
         {
@@ -57,6 +57,7 @@ public class Loader : MonoBehaviour
 
     private IEnumerator _CheckUpdate()
     {
+
         AsyncOperationHandle<IResourceLocator> initHandle = Addressables.InitializeAsync(false);
         yield return initHandle;
 
@@ -71,6 +72,66 @@ public class Loader : MonoBehaviour
         if (checkHandle.Result.Count > 0)
         {
             Debug.LogWarning("有更新");
+
+            var updateHandle = Addressables.UpdateCatalogs(checkHandle.Result, false);
+            yield return updateHandle;
+
+            if (updateHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogWarning("更新失敗");
+                yield break;
+            }
+
+            List<IResourceLocator> locators = updateHandle.Result;
+
+            foreach (var locator in locators)
+            {
+                List<object> keys = new List<object>();
+                keys.AddRange(locator.Keys);
+
+
+                var sizeHandle = Addressables.GetDownloadSizeAsync(keys.GetEnumerator());
+                yield return sizeHandle;
+
+                if (sizeHandle.Status != AsyncOperationStatus.Succeeded)
+                {
+                    Debug.LogWarning("檔案抓取失敗");
+                    yield break;
+                }
+
+                long totalDownloadSize = sizeHandle.Result;
+
+                Debug.LogWarning("download size : " + totalDownloadSize);
+
+                if (totalDownloadSize > 0)
+                {
+                    var downloadHandle = Addressables.DownloadDependenciesAsync(keys, false);
+
+                    while (!downloadHandle.IsDone)
+                    {
+                        if (downloadHandle.Status == AsyncOperationStatus.Failed)
+                        {
+                            Debug.LogWarning("下載失敗");
+                            yield break;
+                        }
+
+                        float percentage = downloadHandle.PercentComplete;
+
+                        Debug.LogWarning("已下載 : " + percentage);
+
+                        yield return null;
+                    }
+
+                    if (downloadHandle.Status == AsyncOperationStatus.Succeeded)
+                    {
+                        Debug.LogWarning("下載完畢");
+
+                    }
+
+                }
+
+            }
+
         }
         else
         {
