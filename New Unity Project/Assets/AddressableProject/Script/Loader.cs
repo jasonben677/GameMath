@@ -29,7 +29,7 @@ public class Loader : MonoBehaviour
 
     private async void _LoadImg()
     {
-        Texture2D texture2D = await Addressables.LoadAssetAsync<Texture2D>("Assets/AddressableProject/Sprite/06.jpg").Task;
+        Texture2D texture2D = await Addressables.LoadAssetAsync<Texture2D>("Assets/AddressableProject/Sprite/08.jpg").Task;
 
         if (texture2D != null)
         {
@@ -89,44 +89,26 @@ public class Loader : MonoBehaviour
                 List<object> keys = new List<object>();
                 keys.AddRange(locator.Keys);
 
+                var downloadHandle = Addressables.DownloadDependenciesAsync(keys, false);
 
-                var sizeHandle = Addressables.GetDownloadSizeAsync(keys.GetEnumerator());
-                yield return sizeHandle;
-
-                if (sizeHandle.Status != AsyncOperationStatus.Succeeded)
+                while (!downloadHandle.IsDone)
                 {
-                    Debug.LogWarning("檔案抓取失敗");
-                    yield break;
+                    if (downloadHandle.Status == AsyncOperationStatus.Failed)
+                    {
+                        Debug.LogWarning("下載失敗");
+                        yield break;
+                    }
+
+                    float percentage = downloadHandle.PercentComplete;
+
+                    Debug.LogWarning("已下載 : " + percentage);
+
+                    yield return null;
                 }
 
-                long totalDownloadSize = sizeHandle.Result;
-
-                Debug.LogWarning("download size : " + totalDownloadSize);
-
-                if (totalDownloadSize > 0)
+                if (downloadHandle.Status == AsyncOperationStatus.Succeeded)
                 {
-                    var downloadHandle = Addressables.DownloadDependenciesAsync(keys, false);
-
-                    while (!downloadHandle.IsDone)
-                    {
-                        if (downloadHandle.Status == AsyncOperationStatus.Failed)
-                        {
-                            Debug.LogWarning("下載失敗");
-                            yield break;
-                        }
-
-                        float percentage = downloadHandle.PercentComplete;
-
-                        Debug.LogWarning("已下載 : " + percentage);
-
-                        yield return null;
-                    }
-
-                    if (downloadHandle.Status == AsyncOperationStatus.Succeeded)
-                    {
-                        Debug.LogWarning("下載完畢");
-
-                    }
+                    Debug.LogWarning("下載完畢");
 
                 }
 
