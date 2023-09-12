@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: RemoteGroup
+  m_EditorClassIdentifier: 
+  m_GroupName: RemoteGroup
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 4f325e1fadb56d54e8b6fd24ded1a6ff
+  m_SerializeEntries:
+  - m_GUID: dff6c4a9bda07714881f47b38f1feeb3
+    m_Address: Assets/AddressableProject/Sprite/01.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d71f66d01441444488bcdb8330e72aa0
+    m_Address: Assets/AddressableProject/Sprite/02.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 585a9d7d1eba7f2448564809e850e7c0
+    m_Address: Assets/AddressableProject/Sprite/03.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 6c1957bab71f02e4d94b7b1f09bbce7f, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: bc71dd479bdf8ef479ecc7f9291b9cc8, type: 2}
+    - {fileID: 11400000, guid: 8b57c82f4d253274c8c0a0abd71b1da1, type: 2}

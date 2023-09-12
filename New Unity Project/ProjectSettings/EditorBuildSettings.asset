@@ -8,4 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CreateMesh.unity
     guid: 7fed7bd48edee1146ac78e848c9d0333
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: e2b6d753a5eb7e440b5b88518b67c30d,
+      type: 2}
