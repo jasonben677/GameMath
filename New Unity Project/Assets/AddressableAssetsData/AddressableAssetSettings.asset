@@ -17,7 +17,7 @@ MonoBehaviour:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
       - m_Id: 17f7b90e469baaa4b9bef3fae3b924ec
         m_Value: ServerData/[BuildTarget]
       - m_Id: 178a91466e30903449198e6c7c8e8593
-        m_Value: https://github.com/jasonben677/GameMath/blob/master/New%20Unity%20Project/ServerData/StandaloneWindows64/
+        m_Value: https://raw.githubusercontent.com/jasonben677/GameMath/master/New%20Unity%20Project/ServerData/StandaloneWindows64
     m_ProfileEntryNames:
     - m_Id: 439168ce9d871804db034ac1c0576575
       m_Name: BuildTarget
