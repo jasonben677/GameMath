@@ -29,7 +29,7 @@ public class Loader : MonoBehaviour
 
     private async void _LoadImg()
     {
-        Texture2D texture2D = await Addressables.LoadAssetAsync<Texture2D>("Assets/AddressableProject/Sprite/05.jpg").Task;
+        Texture2D texture2D = await Addressables.LoadAssetAsync<Texture2D>("Assets/AddressableProject/Sprite/06.jpg").Task;
 
         if (texture2D != null)
         {
