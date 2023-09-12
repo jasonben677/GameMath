@@ -94,7 +94,9 @@ public class Loader : MonoBehaviour
                 List<object> keys = new List<object>();
                 keys.AddRange(locator.Keys);
 
-                var downloadHandle = Addressables.DownloadDependenciesAsync(keys, false);
+                IEnumerable ss = keys;
+
+                var downloadHandle = Addressables.DownloadDependenciesAsync(ss, Addressables.MergeMode.Union, false);
 
                 while (!downloadHandle.IsDone)
                 {
