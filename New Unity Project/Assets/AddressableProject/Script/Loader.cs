@@ -18,18 +18,18 @@ public class Loader : MonoBehaviour
 
     private void Start()
     {
-        //this._LoadImg();
+        this._LoadImg();
 
         //this._InstantiateCircle();
 
 
-        StartCoroutine(this._CheckUpdate());
+        //StartCoroutine(this._CheckUpdate());
     }
 
 
     private async void _LoadImg()
     {
-        Texture2D texture2D = await Addressables.LoadAssetAsync<Texture2D>("Assets/Sprite/02.jpg").Task;
+        Texture2D texture2D = await Addressables.LoadAssetAsync<Texture2D>("Assets/AddressableProject/Sprite/01.jpg").Task;
 
         if (texture2D != null)
         {
