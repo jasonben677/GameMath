@@ -18,10 +18,10 @@ public class Loader : MonoBehaviour
 
     private void Start()
     {
-        this._LoadImg();
+
+        //this._LoadImg();
 
         //this._InstantiateCircle();
-
 
         StartCoroutine(this._CheckUpdate());
     }
@@ -57,9 +57,14 @@ public class Loader : MonoBehaviour
 
     private IEnumerator _CheckUpdate()
     {
-
         AsyncOperationHandle<IResourceLocator> initHandle = Addressables.InitializeAsync(false);
         yield return initHandle;
+
+        if (initHandle.Status != AsyncOperationStatus.Succeeded)
+        {
+            Debug.LogWarning("初始化失敗");
+            yield break;
+        }
 
         var checkHandle = Addressables.CheckForCatalogUpdates(false);
         yield return checkHandle;
@@ -111,7 +116,6 @@ public class Loader : MonoBehaviour
                     Debug.LogWarning("下載完畢");
 
                 }
-
             }
 
         }
@@ -120,6 +124,18 @@ public class Loader : MonoBehaviour
             Debug.LogWarning("沒有更新");
         }
 
+    }
+
+
+    private IEnumerator _ClearAllAssetCoro()
+    {
+        foreach (var locats in Addressables.ResourceLocators)
+        {
+            var async = Addressables.ClearDependencyCacheAsync(locats.Keys, false);
+            yield return async;
+            Addressables.Release(async);
+        }
+        Caching.ClearCache();
     }
 
 }
