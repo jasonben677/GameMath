@@ -29,6 +29,10 @@ MonoBehaviour:
     m_Address: Assets/AddressableProject/Sprite/03.jpg
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: f9ac39bdbfe91c745ab35aaf1acb5158
+    m_Address: Assets/AddressableProject/Sprite/04.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6c1957bab71f02e4d94b7b1f09bbce7f, type: 2}
   m_SchemaSet:
