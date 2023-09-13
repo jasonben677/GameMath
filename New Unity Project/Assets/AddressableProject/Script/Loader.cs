@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.IO;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.AddressableAssets.ResourceLocators;
+using System.Linq;
 
 public class Loader : MonoBehaviour
 {
@@ -18,18 +19,17 @@ public class Loader : MonoBehaviour
 
     private void Start()
     {
-
-        //this._LoadImg();
+        this._LoadImg();
 
         //this._InstantiateCircle();
 
-        StartCoroutine(this._CheckUpdate());
+        //StartCoroutine(this._CheckUpdate());
     }
 
 
     private async void _LoadImg()
     {
-        Texture2D texture2D = await Addressables.LoadAssetAsync<Texture2D>("Assets/AddressableProject/Sprite/08.jpg").Task;
+        Texture2D texture2D = await Addressables.LoadAssetAsync<Texture2D>("Assets/AddressableProject/Sprite/10.jpg").Task;
 
         if (texture2D != null)
         {
@@ -57,6 +57,8 @@ public class Loader : MonoBehaviour
 
     private IEnumerator _CheckUpdate()
     {
+        string oldCatalogPath = Application.persistentDataPath + "/com.unity.addressables/catalog_2023.09.12.10.06.22.hash";
+
         AsyncOperationHandle<IResourceLocator> initHandle = Addressables.InitializeAsync(false);
         yield return initHandle;
 
@@ -78,6 +80,9 @@ public class Loader : MonoBehaviour
         {
             Debug.LogWarning("有更新");
 
+            // 舊的catalog
+            var previousCatalog = Addressables.ResourceLocators.ElementAt(0);
+
             var updateHandle = Addressables.UpdateCatalogs(checkHandle.Result, false);
             yield return updateHandle;
 
@@ -87,39 +92,13 @@ public class Loader : MonoBehaviour
                 yield break;
             }
 
-            List<IResourceLocator> locators = updateHandle.Result;
+            // 更新後的catalog
+            var updateCatalog = Addressables.ResourceLocators.ElementAt(0);
 
-            foreach (var locator in locators)
-            {
-                List<object> keys = new List<object>();
-                keys.AddRange(locator.Keys);
+            // 有異動的資源表
+            var addKeys = updateCatalog.Keys.Except(previousCatalog.Keys);
 
-                IEnumerable ss = keys;
-
-                var downloadHandle = Addressables.DownloadDependenciesAsync(ss, Addressables.MergeMode.Union, false);
-
-                while (!downloadHandle.IsDone)
-                {
-                    if (downloadHandle.Status == AsyncOperationStatus.Failed)
-                    {
-                        Debug.LogWarning("下載失敗");
-                        yield break;
-                    }
-
-                    float percentage = downloadHandle.PercentComplete;
-
-                    Debug.LogWarning("已下載 : " + percentage);
-
-                    yield return null;
-                }
-
-                if (downloadHandle.Status == AsyncOperationStatus.Succeeded)
-                {
-                    Debug.LogWarning("下載完畢");
-
-                }
-            }
-
+            //yield return this._ShowAllDownloadName(addKeys.ToList());
         }
         else
         {
@@ -128,6 +107,65 @@ public class Loader : MonoBehaviour
 
     }
 
+
+    private IEnumerator _ShowAllDownloadName(List<object> keys)
+    {
+        foreach (var key in keys)
+        {
+            Debug.LogWarning("更新 : "+ key);
+
+            var downloadHandle = Addressables.DownloadDependenciesAsync(key, false);
+
+            while (!downloadHandle.IsDone)
+            {
+                if (downloadHandle.Status == AsyncOperationStatus.Failed)
+                {
+                    //Debug.LogWarning("下載失敗");
+                    yield break;
+                }
+
+                float percentage = downloadHandle.PercentComplete;
+
+                //Debug.LogWarning("已下載 : " + percentage);
+
+                yield return null;
+            }
+
+            if (downloadHandle.Status == AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogWarning("下載完畢 : " + key.ToString());
+
+            }
+        }
+    }
+
+    private IEnumerator _ShowAllDownloadNameToEnumerable(List<object> keys)
+    {
+        IEnumerable ss = keys;
+
+        var downloadHandle = Addressables.DownloadDependenciesAsync(ss, Addressables.MergeMode.Union, false);
+
+        while (!downloadHandle.IsDone)
+        {
+            if (downloadHandle.Status == AsyncOperationStatus.Failed)
+            {
+                //Debug.LogWarning("下載失敗");
+                yield break;
+            }
+
+            float percentage = downloadHandle.PercentComplete;
+
+            //Debug.LogWarning("已下載 : " + percentage);
+
+            yield return null;
+        }
+
+        if (downloadHandle.Status == AsyncOperationStatus.Succeeded)
+        {
+            Debug.LogWarning("下載完畢");
+
+        }
+    }
 
     private IEnumerator _ClearAllAssetCoro()
     {
