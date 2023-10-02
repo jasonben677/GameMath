@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6583829924349283051}
   m_Father: {fileID: 0}
@@ -47,6 +48,7 @@ MonoBehaviour:
   cposX: 0.3
   cposy: 0.1
   cposz: 0.2
+  vector: {x: 0, y: 1, z: 0}
   radius: 1
   rValue: 3
 --- !u!1001 &6583829924349153387
@@ -61,6 +63,10 @@ PrefabInstance:
       value: ShibaInu
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ce5f96dda91d9b84494bc628b369e732, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: ce5f96dda91d9b84494bc628b369e732, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -73,6 +79,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ce5f96dda91d9b84494bc628b369e732, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: ce5f96dda91d9b84494bc628b369e732, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0.7071068
       objectReference: {fileID: 0}
@@ -82,14 +92,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ce5f96dda91d9b84494bc628b369e732, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: ce5f96dda91d9b84494bc628b369e732, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: ce5f96dda91d9b84494bc628b369e732, type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ce5f96dda91d9b84494bc628b369e732, type: 3}
